@@ -1,38 +1,58 @@
-.App {
-  text-align: center;
-}
+.backgroundImage {background-position: center; background-repeat: no-repeat; background-size: cover; object-fit: cover;}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.animation {opacity: 0; animation-name: opacity; animation-duration: 1s; animation-fill-mode: forwards;}
+.scrollview {max-width: 720px; height: 100%; position: relative; margin: 0 auto; overflow: hidden;}
+.scrollview-inner {padding: 30px; counter-reset: section; height: 100vh;}
+.scrollview-inner li {text-align: center; width: 650px; margin: 40px auto; height: 1000px; overflow: hidden; border-radius: 30px;}
+.scrollview-inner li .up-image {position: relative; width: 100%; height: 300px; border-top-left-radius: 30px; border-top-right-radius: 30px; background: #fff;}
+.scrollview-inner li .up-image .image {position: absolute; top: 0; left: 0; width: 650px; height: 300px; border-top-left-radius: 30px; border-top-right-radius: 30px; transition: all ease-in-out 0.3s;}
+.scrollview-inner li.on .up-image .image {background-image: url('./img/up_image1.png');}
+.scrollview-inner .scroll li:nth-child(1) .up-image .image {background-image: url('./img/up_image2.png');}
+.scrollview-inner .scroll li:nth-child(2) .up-image .image {background-image: url('./img/up_image3.png');}
+.scrollview-inner li .down-background {width: 100%; height: 700px; position: absolute; bottom: 0; left: 0; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; transition: all ease-in-out 0.3s;}
+.scrollview-inner li.on .down-background {background-image: url("../src/img/contents1.png");}
+.scrollview-inner .scroll li:nth-child(1) .down-background {background-image: url("../src/img/contents2.png");}
+.scrollview-inner .scroll li:nth-child(2) .down-background {background-image: url("../src/img/contents3.png");}
+.scrollview-inner li .arrow {position: absolute; bottom: calc(100vw*40/720); right: calc(100vw*40/720); width: calc(100vw*60/720); height: calc(100vw*60/720); background-image: url('./img/arrow.png');}
+.scrollview-inner li.on {opacity: 1; position: fixed; top: calc(100vw*750/720); left: 50%; transform: translate(-50%, -50%); transition: all ease-in-out 0.5s;}
+.scrollview-inner li.on.off {opacity: 0; transform: translateX(-50%) scale(0);}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+.scrollview-inner .scroll {transition: all ease-in-out 0.3s;}
+.scrollview-inner .scroll li {text-align: center; position: relative; width: 650px; margin: 40px auto; height: 1000px; border-radius: 30px;}
+.scrollview-inner .scroll li:nth-child(1) {margin-top: calc(100vw*1300/720);}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.container {max-width: 720px; height: 100vh; position: relative; margin: 0 auto; overflow: hidden;}
+.transition-contents {position: absolute; top: 0; left: -100%; z-index: -1; width: 100%; height: 100vh; animation-name: translateX; animation-duration: 0.5s; animation-fill-mode: forwards;}
+@keyframes translateX {
+  0% {left: -100%;}
+  100% {left: 0%;}  
 }
+.transition-contents .background {width: 100%; height: 100vh; background: #FF2C5E;}
+.transition-contents .logo {position: absolute; top: 50%; left: -100%; transform: translate(-50%, -50%); color: #fff; font-size: calc(100vw*60/720); font-weight: bold; z-index: 0; animation-name: transitionLogo; animation-duration: 0.8s; animation-delay: 0.3s; animation-fill-mode: forwards;}
+@keyframes transitionLogo {
+  0% {left: -100%; opacity: 0;}
+  50% {left: 50%; opacity: 1;}
+  90% {left: 50%; opacity: 1;}
+  100% {left: 50%; opacity: 0;}  
+}
+.container .progress-bar-container {opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 20px; animation-name: opacity; animation-duration: 1s; animation-delay: 1.5s; animation-fill-mode: forwards;}
+.container .progress-bar-container .progress-bar {position: absolute; top: 0; left: 0; width: 100%; height: 20px; background: #fff; opacity: 0.6;}
+.container .progress-bar-container .progress-bar-active {position: absolute; top: 0; left: 0; width: 0%; height: 20px; background: #fff; transition: all ease-in-out 0.3s;}
+.container .close {opacity: 0; font-size: calc(100vw*40/720); position: absolute; top: calc(100vw*100/720); left: 50%; transform: translateX(-50%); text-align: center; color: #fff; animation-name: opacity; animation-duration: 1s; animation-delay: 2.5s; animation-fill-mode: forwards;}
+@keyframes opacity {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+.contents-container {position: absolute; opacity: 0; top: 125%; left: 50%; transform: translate(-50%, -50%); animation-name: translateY; animation-duration: 1s; animation-delay: 1.5s; animation-fill-mode: forwards;}
+@keyframes translateY {
+  0% {top: 125%; opacity: 0;}
+  100% {top: 50%; opacity: 1;}
+}
+.contents-container .up-contents {margin: 0 auto; width: 650px; height: 500px; background: #000; border-top-left-radius: 30px; border-top-right-radius: 30px;}
+.contents-container .down-contents-container {width: 650px;}
+.contents-container .down-contents-container .down-contents {list-style: none; width: 650px; height: 500px; background: #fff; display: inline-block; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;}
+.contents-container .down-contents-container .down-contents:last-child {margin: 0;}
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+.more {opacity: 0; position: absolute; bottom: calc(100vw*60/720); left: 50%; transform: translateX(-50%); width: calc(100vw*40/720); height: calc(100vw*40/720); border-radius: 50%; background: #fff; animation-name: opacity; animation-duration: 1s; animation-delay: 2.5s; animation-fill-mode: forwards;}
+.dim {position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background: #000; opacity: 0.5; transition: all ease-in-out 0.5s;}
+.more-contents {width: 700px; height: 900px; margin: 0 auto; position: absolute; bottom: -100%; left: 50%; transform: translateX(-50%); background: #2B2727; border-top-left-radius: 30px; border-top-right-radius: 30px; transition: all ease-in-out 0.5s;}
